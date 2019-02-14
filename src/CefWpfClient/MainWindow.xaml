@@ -4,17 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:CefWpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        xmlns:ViewModels="clr-namespace:CefWpfClient.ViewModels"
-        xmlns:CefWpfClient="clr-namespace:CefWpfClient"
         xmlns:ViewModels1="clr-namespace:CefWpfClient.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="350"
-        Width="525"
+        Height="700"
+        Width="1000"
         d:DataContext="{d:DesignInstance ViewModels1:WebBrowserViewModel}">
     <!-- Events are bound to the ViewModel in code behind -->
-    <CefWpf:ChromiumWebBrowser 
+    <CefWpf:ChromiumWebBrowser x:Name="Browser"
                                IsBrowserInitializedChanged="OnBrowserInitialized"
-                               LoadingStateChanged="OnFrameLoadEnd"
-                               LoadError="OnLoadError" />
+                               LoadingStateChanged="OnLoadingStateChanged"
+                               LoadError="OnLoadError"
+                               />
 </Window>

@@ -30,7 +30,7 @@ namespace CefWpfClient
         /// <summary>
         /// This could be bound directly in XAML with the use of Blend Behaviours, but we have to invoke it on the UI thread, and I dont want that inside my viewmodels
         /// </summary>
-        private void OnFrameLoadEnd(object sender, LoadingStateChangedEventArgs loadingStateChangedEventArgs)
+        private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs loadingStateChangedEventArgs)
         {
             InvokeExtensions.OnUIThread(() => { m_webBrowserViewModel.OnFinishedLoading(loadingStateChangedEventArgs); });
         }
@@ -41,6 +41,14 @@ namespace CefWpfClient
         private void OnLoadError(object sender, LoadErrorEventArgs e)
         {
             InvokeExtensions.OnUIThread(() => { m_webBrowserViewModel.OnLoadError(e); });
+        }
+
+        public void Dispose()
+        {
+            m_webBrowserViewModel.Dispose();
+            Browser.IsBrowserInitializedChanged -= OnBrowserInitialized;
+            Browser.LoadingStateChanged -= OnLoadingStateChanged;
+            Browser.LoadError -= OnLoadError;
         }
     }
 }
