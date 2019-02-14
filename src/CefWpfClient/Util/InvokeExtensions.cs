@@ -4,6 +4,9 @@ using System.Windows.Threading;
 
 namespace CefWpfClient.Util
 {
+    /// <summary>
+    /// Just a utility class to invoke on UI thread.
+    /// </summary>
     internal static class InvokeExtensions
     {
         public static void OnUIThread(Action action)
