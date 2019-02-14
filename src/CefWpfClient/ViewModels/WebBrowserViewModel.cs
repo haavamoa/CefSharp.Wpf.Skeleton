@@ -1,9 +1,10 @@
+using System;
 using CefSharp;
 using CefWpfClient.Helpers;
 
 namespace CefWpfClient.ViewModels
 {
-    public class WebBrowserViewModel : ObservableObject
+    public class WebBrowserViewModel : ObservableObject, IDisposable
     {
         private IWebBrowser m_webBrowser;
 
@@ -35,7 +36,7 @@ namespace CefWpfClient.ViewModels
         }
 
         /// <summary>
-        /// Dispose is called in the <see cref="MainWindow"/> which is called in <see cref="App"/> 
+        /// Dispose is called in the <see cref="MainWindow.OnClosed"/> 
         /// </summary>
         public void Dispose()
         {

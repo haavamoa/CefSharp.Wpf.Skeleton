@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using CefSharp;
+using CefSharp.Wpf;
 using CefWpfClient.Util;
 using CefWpfClient.ViewModels;
 
@@ -11,6 +13,7 @@ namespace CefWpfClient
     public partial class MainWindow
     {
         private WebBrowserViewModel m_webBrowserViewModel;
+        private ChromiumWebBrowser m_chromiumWebBrowser;
 
         public MainWindow()
         {
@@ -24,6 +27,7 @@ namespace CefWpfClient
         /// </summary>
         private void OnBrowserInitialized(object sender, DependencyPropertyChangedEventArgs e)
         {
+                m_chromiumWebBrowser = sender as ChromiumWebBrowser;
                 m_webBrowserViewModel.Initialize(sender as IWebBrowser);
         }
         
@@ -43,12 +47,13 @@ namespace CefWpfClient
             InvokeExtensions.OnUIThread(() => { m_webBrowserViewModel.OnLoadError(e); });
         }
 
-        public void Dispose()
+        protected override void OnClosed(EventArgs e)
         {
+            base.OnClosed(e);
             m_webBrowserViewModel.Dispose();
-            Browser.IsBrowserInitializedChanged -= OnBrowserInitialized;
-            Browser.LoadingStateChanged -= OnLoadingStateChanged;
-            Browser.LoadError -= OnLoadError;
+            m_chromiumWebBrowser.IsBrowserInitializedChanged -= OnBrowserInitialized;
+            m_chromiumWebBrowser.LoadingStateChanged -= OnLoadingStateChanged;
+            m_chromiumWebBrowser.LoadError -= OnLoadError;
         }
     }
 }
