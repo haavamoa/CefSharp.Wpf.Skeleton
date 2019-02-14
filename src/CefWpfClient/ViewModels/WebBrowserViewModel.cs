@@ -14,6 +14,7 @@ namespace CefWpfClient.ViewModels
         public void Initialize(IWebBrowser webBrowser)
         {
             m_webBrowser = webBrowser;
+            //A easier way of forcing the browser to load a site is to bind the Address property of ChromiumWebBrowser to a property in this ViewModel
             m_webBrowser.Load("http://www.google.com");
         }
 
